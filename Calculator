@@ -1,0 +1,165 @@
+
+package kalkul;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+
+
+public class Kalkul
+{
+    static JButton but_1 = new JButton("1");
+    static JButton but_2 = new JButton("2");
+    static JButton but_3 = new JButton("3");
+    static JButton but_4 = new JButton("4");
+    static JButton but_5 = new JButton("5");
+    static JButton but_6 = new JButton("6");
+    static JButton but_7 = new JButton("7");
+    static JButton but_8 = new JButton("8");
+    static JButton but_9 = new JButton("9");
+    static JButton but_0 = new JButton("0");
+    static JButton but_plus = new JButton("+");
+    static JButton but_minus = new JButton("-");
+    static JButton but_multiply = new JButton("*");
+    static JButton but_divide = new JButton("/");
+    static JButton but_dot = new JButton(".");
+    static JButton but_equals = new JButton("=");
+    static JTextArea result = new JTextArea();
+    
+    public static void LayOut()
+    {
+        JFrame frame = new JFrame("Kalkulator");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        result.add(BorderLayout.NORTH, new JTextArea());
+        result.setSize(300, 300);
+        result.setEditable(false);
+
+        JPanel buttons_panel = new JPanel();
+        buttons_panel.setLayout(new GridLayout(4, 4));
+        buttons_panel.add(but_1);
+        buttons_panel.add(but_2);
+        
+        buttons_panel.add(but_3);
+        
+        buttons_panel.add(but_equals);
+        buttons_panel.add(but_4);
+        buttons_panel.add(but_5);
+        buttons_panel.add(but_6);
+        buttons_panel.add(but_divide);
+        buttons_panel.add(but_7);
+        buttons_panel.add(but_8);
+        buttons_panel.add(but_9);
+        buttons_panel.add(but_multiply);
+        buttons_panel.add(but_dot);
+        buttons_panel.add(but_0);
+        buttons_panel.add(but_plus);
+        buttons_panel.add(but_minus);
+        buttons_panel.setSize(300, 300);
+
+
+        but_dot.addActionListener(new button_kropka());
+        but_plus.addActionListener(new button_dodaj());
+        but_minus.addActionListener(new button_minus());
+        but_multiply.addActionListener(new button_multiply());
+        but_divide.addActionListener(new button_podziel());
+        but_equals.addActionListener(new button_rowna_sie());
+
+        but_1.addActionListener(new button_jeden());
+        but_2.addActionListener(new button_dwa());
+        but_3.addActionListener(new button_trzy());
+        but_4.addActionListener(new button_cztery());
+        but_5.addActionListener(new button_piec());
+        but_6.addActionListener(new button_szesc());
+        but_7.addActionListener(new button_siedem());
+        but_8.addActionListener(new button_osiem());
+        but_9.addActionListener(new button_dziewiec());
+        but_0.addActionListener(new button_zero());
+
+        frame.add(BorderLayout.NORTH, result);
+        frame.add(BorderLayout.SOUTH, buttons_panel);
+      frame.setSize(300, 300);
+
+        frame.setVisible(true);
+    }
+
+    static class button_jeden implements ActionListener{@Override
+    public void actionPerformed(ActionEvent ev){Integer w = Integer.parseInt(but_1.getText());result.append(w.toString());}}
+    
+    static class button_dwa implements ActionListener{@Override
+    public void actionPerformed(ActionEvent ev){Integer w = Integer.parseInt(but_2.getText());result.append(w.toString());}}
+    
+    
+    static class button_trzy implements ActionListener{@Override
+    public void actionPerformed(ActionEvent ev){Integer w = Integer.parseInt(but_3.getText());result.append(w.toString());}}
+    
+    static class button_cztery implements ActionListener{@Override
+    public void actionPerformed(ActionEvent ev){Integer w = Integer.parseInt(but_4.getText());result.append(w.toString());}}
+    
+    static class button_piec implements ActionListener{@Override
+    public void actionPerformed(ActionEvent ev){Integer w = Integer.parseInt(but_5.getText());result.append(w.toString());}}
+    
+    
+    static class button_kropka implements ActionListener{@Override
+    public void actionPerformed(ActionEvent ev){result.append(".");}}
+   
+    
+    static class button_dodaj implements ActionListener{@Override
+    public void actionPerformed(ActionEvent ev){result.append("+");}}
+    
+    
+    static class button_szesc implements ActionListener{@Override
+    public void actionPerformed(ActionEvent ev){Integer w = Integer.parseInt(but_6.getText());result.append(w.toString());}}
+    
+    static class button_siedem implements ActionListener{@Override
+    public void actionPerformed(ActionEvent ev){Integer w = Integer.parseInt(but_7.getText());result.append(w.toString());}}
+    
+    static class button_osiem implements ActionListener{@Override
+    public void actionPerformed(ActionEvent ev){Integer w = Integer.parseInt(but_8.getText());result.append(w.toString());}}
+    
+    static class button_dziewiec implements ActionListener{@Override
+    public void actionPerformed(ActionEvent ev){Integer w = Integer.parseInt(but_9.getText());result.append(w.toString());}}
+    
+    static class button_zero implements ActionListener{@Override
+    public void actionPerformed(ActionEvent ev){Integer w = Integer.parseInt(but_0.getText());result.append(w.toString());}}
+    
+    
+    
+    static class button_minus implements ActionListener{@Override
+    public void actionPerformed(ActionEvent ev){result.append("-");}}
+    
+    static class button_multiply implements ActionListener{@Override
+    public void actionPerformed(ActionEvent ev){result.append("*");}}
+    
+    static class button_podziel implements ActionListener{@Override
+    public void actionPerformed(ActionEvent ev){result.append("/");}}
+ 
+    static class button_rowna_sie implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent ev)
+        {
+            String first_part, znak = "?", second_part, output_result;
+            int index = 0;
+            output_result = result.getText();
+            
+            if(output_result.indexOf('*') != -1){znak = "*";index = output_result.indexOf('*');}
+            if(output_result.indexOf('+') != -1){znak = "+";index = output_result.indexOf('+');}
+            if(output_result.indexOf('-') != -1){znak = "-";index = output_result.indexOf('-');}
+            if(output_result.indexOf('/') != -1){znak = "/";index = output_result.indexOf('/');}
+            JTextArea tmp = new JTextArea();
+
+            first_part = output_result.substring(0, index);
+            if(first_part.indexOf('.') == -1){tmp.setText(first_part);tmp.append(".0");first_part = tmp.getText();}
+            second_part = output_result.substring(index+1, output_result.length());
+            if(second_part.indexOf('.') == -1){tmp.setText(second_part);tmp.append(".0");second_part = tmp.getText();}
+            Double first,second;
+            switch (znak){
+                    case "+":first = Double.parseDouble(first_part); second = Double.parseDouble(second_part);output_result = Double.toString(first+second);result.setText(output_result);break;
+                    case "-": first = Double.parseDouble(first_part); second = Double.parseDouble(second_part);output_result = Double.toString(first-second);result.setText(output_result);break;
+                    case "/":first = Double.valueOf(first_part); second = Double.valueOf(second_part);output_result = Double.toString(first/second);result.setText(output_result);break;
+                    case "*": first = Double.parseDouble(first_part); second = Double.parseDouble(second_part);output_result = Double.toString(first*second);result.setText(output_result);break;
+            }
+           
+        }}
+    public static void main(String[] args){EventQueue.invokeLater(Kalkul::LayOut);}
+}
+
